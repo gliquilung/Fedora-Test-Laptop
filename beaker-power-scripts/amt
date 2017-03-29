@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+if [ "$power_mode" == interrupt ] ; then
+    echo "interrupt not supported by amt" >&2
+    exit 1
+fi
+
+fence_amt -v -x -a "$power_address" -p "$power_pass" -n "$power_id" -o "$power_mode"
