@@ -1,0 +1,26 @@
+---
+- hosts: local-server
+  become: true
+  vars:
+    dhcp-static-lease:
+      - name: 'laptop1'
+        mac: '00:11:22:33:44:55'
+        ip: '10.42.0.2'
+    dhcp:
+      network: 10.42.0.0
+      subnet: 255.255.0.0
+      router: 10.42.0.1
+      begin: 10.42.0.3
+      end: 10.42.255.254
+    tftp-server: 10.42.0.2
+  tasks:
+    - name: install dhcp and tftp
+      dnf: name={{item}} state=present
+      with_items:
+        - dhcp-server
+        - tftp-server
+    - name: Configure dhcp
+      template:
+        src: template/dhcp.conf.j2
+        dest: /etc/dhcp/dhcp.conf
+
