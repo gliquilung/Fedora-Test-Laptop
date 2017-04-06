@@ -23,4 +23,22 @@
       template:
         src: template/dhcp.conf.j2
         dest: /etc/dhcp/dhcp.conf
-
+    - name: create directories
+      shell: "mkdir -p {{item}}"
+      with_items:
+        - /var/lib/tftpboot/pxelinux/pxelinux.cfg/
+        - /var/lib/tftpboot/EFI/fedora/
+    - name: copy files for tftp
+      copy: "src={{item.src}} dest={{item.dest}}"
+      with_items:
+        - src: /boot/efi/EFI/fedora/shim.efi
+          dest: /var/lib/tftpboot/EFI/shim.efi
+        - src: /boot/efi/EFI/fedora/grubx64.efi
+          dest: /var/lib/tftboot/grubx64.efi
+        - src: /usr/share/syslinux/pxelinux.0
+          dest: /var/lib/tftboot/pxelinux/pxelinux.0
+    - name: start services
+      systemd: name={{item}} state=started enabled=yes
+      with_items:
+        - tftp
+        - dhcpd

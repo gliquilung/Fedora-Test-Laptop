@@ -20,9 +20,9 @@ subnet {{ dhcp.network }} netmask {{ dhcp.subnet }} {
 		next-server {{ tftp-server }};
 
 		if option arch = 00:06 {
-			filename "pxelinux/bootia32.efi";
+			filename "EFI/shim.efi";
 		} else if option arch = 00:07 {
-			filename "pxelinux/bootx64.efi";
+			filename "EFI/shim.efi";
 		} else {
 			filename "pxelinux/pxelinux.0";
 		}
