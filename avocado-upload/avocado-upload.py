@@ -4,7 +4,7 @@ import pycurl, json
 import zipfile, os, requests
 import time
 
-destinationServer = 'gliquilung@avocado.bewaar.me:/home/' #TODO: change to testuser with ssh key
+destinationServer = 'gliquilung@avocado.bewaar.me:/home/gliquilung/' #for now I used gliquilung since i couldn't create keys for the testuser
 zipFileDir = '/home/testuser/result-zips/'
 watchDir = '/root/avocado/job-results/'
 testName = ""
@@ -50,8 +50,8 @@ def extractJSON(file, fileName):
 
 # Upload a zip file using scp.
 def uploadZip(dest, zipFile):
-    scpInstruction = "scp " + zipFile + " " + dest #TODO: this should be made to work
-    #os.system(scpInstruction)
+    scpInstruction = "scp " + zipFile + " " + dest
+    os.system(scpInstruction)
 
 #Push values to ResultsDB
 def pushResults(outcome, name, fileName):
@@ -106,4 +106,3 @@ handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
 # Start looping on the watched dir(s) to trigger handler
 notifier.loop()
-
