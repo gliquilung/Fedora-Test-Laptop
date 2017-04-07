@@ -4,7 +4,7 @@ import pycurl, json
 import zipfile, os, requests
 import time
 
-destinationServer = 'gliquilung@avocado.bewaar.me:/home/' #TODO: change to testuser with ssh key
+destinationServer = 'testuser@avocado.bewaar.me:/home/testuser'
 zipFileDir = '/home/testuser/result-zips/'
 watchDir = '/root/avocado/job-results/'
 testName = ""
