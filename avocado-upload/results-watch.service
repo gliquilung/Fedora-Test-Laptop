@@ -1,0 +1,11 @@
+[Unit]
+Description=Notifying script, which uploads to ResultsDB on changes in the watched dir
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/testuser/avocado-upload.py
+User=testuser
+
+[Install]
+WantedBy=multi-user.target
